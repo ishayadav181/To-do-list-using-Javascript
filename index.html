@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    <link rel="stylesheet" href="style.css">
+    <title>To do list</title>
+</head>
+<body>
+    
+
+    
+    <div class="flex fc jc ai outerdiv mt mauto">
+       
+        <h1 class="t1 tc "> To Do list</h1>
+
+           
+
+        <div class="flex fc jc ai mauto " id="tasklist">
+           
+            <!-- tasks will be added here  -->
+
+        </div>
+        
+            <form  class=" fr jc ai dn  wfull bb" id="form" onsubmit="return validatetask();" name="form" >
+                <input  type="text" id="newtask" class="t2 mt tc inp" name="task"  >
+                <button class="t2 cw bblue tc "  type="submit" >Add </button>
+              
+            </form>
+        
+        
+            <div class="flex fr jc mt "  style="margin-bottom: 2rem;"id="addb">
+                <button onclick="showform()" class="bmblue cw t2 tc ">Add task</button>
+        
+            </div>
+        
+       
+
+       
+  
+    </div>
+
+    
+  
+    
+
+    
+    
+
+    <script src="index.js"></script>
+</body>
+</html>
