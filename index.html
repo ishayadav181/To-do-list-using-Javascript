@@ -24,9 +24,9 @@
 
         </div>
         
-            <form  class=" fr jc ai dn  wfull bb" id="form" onsubmit="return validatetask();" name="form" >
+            <form  class=" fr jc ai dn  wfull bb" id="form" onsubmit="return false;" name="form" >
                 <input  type="text" id="newtask" class="t2 mt tc inp" name="task"  >
-                <button class="t2 cw bblue tc "  type="submit" >Add </button>
+                <button class="t2 cw bblue tc "  type="submit" onclick="return validatetask();">Add </button>
               
             </form>
         
@@ -35,19 +35,8 @@
                 <button onclick="showform()" class="bmblue cw t2 tc ">Add task</button>
         
             </div>
-        
-       
-
-       
   
     </div>
-
-    
-  
-    
-
-    
-    
 
     <script src="index.js"></script>
 </body>

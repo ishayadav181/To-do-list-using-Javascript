@@ -1,5 +1,3 @@
-
-
 // html for adding new task 
 
 let html1=`<h2 class="tl wfull t2 cw">`;
@@ -11,9 +9,12 @@ let html2=`</h2>
 `;
 
 
+let list=[];
+
 // checking if task is not empty
 
-function validatetask() {
+function validatetask() 
+{
     var x = document.forms["form"]["task"].value;
     if (x == "") {
       alert("Task can't be empty");
@@ -21,27 +22,21 @@ function validatetask() {
     }
     else 
      addnewtask();
-  }
+}
 
   
 function uniqueid()
 {
-    return (Math.floor(Math.random() * 100));
+    return (Date.now());
 }
+
+
 function loadtasks()
 {
-   
-      let keys=Object.keys(localStorage);
-      let len=keys.length;
- 
-   while(len--)
-   {
-     let curtask=localStorage.getItem(keys[len]);
-     addtask(curtask,keys[len]);
-     console.log(curtask);
-
-   }
-
+  
+    list=JSON.parse(localStorage.getItem("todolist"));
+    for(let i=0;i<list.length;i++)
+    addtask(list[i]);
        
     
 }
@@ -52,38 +47,46 @@ window.onload=loadtasks();
 function addnewtask()
 {
     const taskstring=document.getElementById("newtask").value;
-    addtask(taskstring,0);
+
+    const taskobj=
+     {
+        text: taskstring,
+        id:uniqueid(),
+        comp:false
+    };
+    list.push(taskobj);
+   
+    localStorage.setItem("todolist",JSON.stringify(list));
+   
+    addtask(taskobj);
 
 }
 
-function addtask(taskstring, taskid)
+function addtask(taskobj)
 {   
-    
-
     const ntask=document.createElement("div");
 
-    if(taskid==0)
-    ntask.id=uniqueid();
-    
-    else 
-    ntask.id=taskid;
-    
+    ntask.id=taskobj.id;
     ntask.className="task flex fr ai js wfull";
-    ntask.innerHTML=html1+taskstring+"</h2>"+html2;
+    ntask.innerHTML=html1+taskobj.text+"</h2>"+html2;
     document.getElementById("tasklist").appendChild(ntask);
-    localStorage.setItem(ntask.id,taskstring);
-
-
-    var element = document.getElementById("form");
     
-    element.classList.add("dn");
-  
-    element.classList.remove("flex");
+    if(taskobj.comp)
+    {
+        const element=document.getElementById(taskobj.id);
+        element.classList.add("linet");
+    }
+    
 
+    {
+    var element = document.getElementById("form");
+    element.classList.add("dn");
+    element.classList.remove("flex");
 
     var element = document.getElementById("addb");
     element.classList.remove("dn");
     element.classList.add("flex");
+    }  
   
 
 
@@ -91,20 +94,37 @@ function addtask(taskstring, taskid)
 function removetask(button)
 {
     const divid=button.parentNode.parentNode.id;
-    localStorage.removeItem(divid);
 
+    for(let i=0;i<list.length;i++)
+     if(divid==list[i].id)
+     {
+         list.splice(i,1);
+         break;
+     }
+    localStorage.setItem("todolist",JSON.stringify(list));
+
+    {
     const taskdiv=document.getElementById(divid);
     document.getElementById("tasklist").removeChild(taskdiv);
+    }
 
 
 }
 
 function completed(button)
 {
-    
-    const element=document.getElementById(button.parentNode.parentNode.id);
+    const divid=button.parentNode.parentNode.id;
+    const element=document.getElementById(divid);
     element.classList.add("linet");
 
+    for(let i=0;i<list.length;i++)
+     if(divid==list[i].id)
+     {
+         list[i].comp=true;
+         break;
+     }
+
+    localStorage.setItem("todolist",JSON.stringify(list));
 
 }
 
