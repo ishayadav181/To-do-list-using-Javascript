@@ -34,7 +34,7 @@ function uniqueid()
 function loadtasks()
 {
   
-    list=JSON.parse(localStorage.getItem("todolist"));
+    list=JSON.parse(localStorage.getItem("todolist")) || [];
     for(let i=0;i<list.length;i++)
     addtask(list[i]);
        
